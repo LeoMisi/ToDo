@@ -23,7 +23,7 @@ function checksExistsUserAccount(request, response, next) {
 }
 
 app.post('/users', (request, response) => {
-  const { cpf, name, username } = request.body;
+  const {name, username } = request.body;
 
   const usersAreExists = users.find(user => user.username === username);
 
@@ -32,10 +32,9 @@ app.post('/users', (request, response) => {
   }
 
   const user = {
-    cpf: cpf,
     id: uuidv4(),
-    name: name,
-    username: username,
+    name,
+    username,
     todos: [],
     created_at: new Date(),
   }
@@ -61,7 +60,7 @@ app.post('/todos', checksExistsUserAccount, (request, response) => {
 
   const todo = {
     id: uuidv4(),
-    title: title,
+    title,
     done: false,
     deadline: new Date(deadline),
     created_at: new Date(),
